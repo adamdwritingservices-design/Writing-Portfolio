@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam Dickson — Writing Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f5f0e8;
+    --cream: #ede7db;
+    --accent: #b44a2f;
+    --accent-light: #d4856e;
+    --muted: #7a7062;
+    --rule: #c9bfaf;
+    --white: #fffdf8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 17px;
+    overflow-x: hidden;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem 2rem;
+    max-width: 820px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .hero-contact {
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-contact a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  .hero-contact a:hover { border-bottom-color: var(--accent); }
+
+  /* ---- NAVIGATION ---- */
+  .portfolio-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 2rem;
+  }
+
+  .portfolio-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 0;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow-x: auto;
+  }
+
+  .portfolio-nav a {
+    display: block;
+    padding: 1rem 1.25rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .portfolio-nav a:hover,
+  .portfolio-nav a.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ---- SECTIONS ---- */
+  .section {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section + .section {
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    font-style: italic;
+  }
+
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+
+  .section-intro {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 620px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  /* ---- SAMPLE CARDS ---- */
+  .sample-content {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 2.5rem 2.5rem 2rem;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .sample-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+  }
+
+  .sample-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .sample-content p {
+    margin-bottom: 1rem;
+    color: #3a3a3a;
+  }
+
+  .sample-content p:last-child { margin-bottom: 0; }
+
+  .sample-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent-light);
+    padding: 0.2em 0.7em;
+    border-radius: 2px;
+    margin-bottom: 1.25rem;
+  }
+
+  .expand-toggle {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0.4em 0;
+    border-bottom: 1px dashed var(--accent-light);
+    transition: border-color 0.3s;
+  }
+
+  .expand-toggle:hover { border-bottom-color: var(--accent); }
+
+  .sample-full {
+    display: none;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .sample-full.open { display: block; }
+
+  .sample-full p { margin-bottom: 1rem; }
+
+  /* ---- ABOUT SECTION ---- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .about-card {
+    padding: 0;
+  }
+
+  .about-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-card p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .skills-list span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--cream);
+    padding: 0.35em 0.8em;
+    border-radius: 2px;
+    color: var(--muted);
+  }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--rule);
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .footer h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer p {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .footer a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid var(--accent-light);
+    padding-bottom: 0.15em;
+    transition: border-color 0.3s;
+  }
+
+  .footer a:hover { border-bottom-color: var(--accent); }
+
+  .footer-note {
+    margin-top: 3rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--rule);
+    letter-spacing: 0.08em;
+  }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .sample-content { padding: 1.75rem; }
+    .section { padding: 3.5rem 1.25rem; }
+    .hero { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .hero-contact { flex-direction: column; gap: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Writing Portfolio</p>
+    <h1>Adam Dickson</h1>
+  </div>
+  <div class="hero-contact">
+    <a href="mailto:adamdwritingservices@gmail.com">adamdwritingservices@gmail.com</a>
+  </div>
+</header>
+
+<!-- ==================== NAV ==================== -->
+<nav class="portfolio-nav">
+  <ul>
+    <li><a href="#proposal">Business Proposal</a></li>
+    <li><a href="#branding">Brand Analysis</a></li>
+    <li><a href="#review">Media Review</a></li>
+    <li><a href="#blog">Blog Post</a></li>
+    <li><a href="#script">Video Script</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- ==================== 01 BUSINESS PROPOSAL ==================== -->
+<section class="section" id="proposal">
+  <p class="section-number">01</p>
+  <h2>Business Proposal</h2>
+  <p class="section-meta">Intertwined — Literary Magazine &amp; Writing Service</p>
+
+  <div class="sample-content">
+    <span class="sample-tag">Executive Summary</span>
+    <p>Intertwined is a literary magazine and writing service dedicated to supporting and promoting local creative writers, artists, and small businesses by blending literature with visual arts. By blending art with literature, we aim to foster meaningful connections between writers and artists, while organically widening the reach of both mediums.</p>
+    <p>Our business model will be based primarily on partnerships with galleries, giving artists the opportunity to commission written works that complement their visual or auditory art. Further, individual artists will also be able to commission companion pieces, allowing them to promote their name in the space. To maximize our partnerships, we will publish bi-annual magazine issues, comprising short stories and poetry connected to real artistic projects featured in local art exhibitions. These partnerships will also allow us to grow our budget and maximize the pay we are able to offer our writers.</p>
+    <p>Intertwined will also offer copywriting and editing services, which in tandem with its magazine, will offer a diverse array of services to Ottawa-based writers, artists, and businesses. Additionally, we will host a bi-annual poetry competition with a small entry fee to further engage the literary community.</p>
+    <p>Our project's unique offerings promise a service that will meet the marketing needs of a business while staying true to the artistic roots of its targeted markets. As such, Intertwined's versatility will differentiate itself from expected competitors like marketing agencies, established publications, and freelance writers.</p>
+    <p>The requested $5,000 in seed funding will be allocated towards a branding package, website, marketing efforts, publication expenses, and outreach initiatives.</p>
+
+    <button class="expand-toggle" onclick="toggleSample(this)">Read more ↓</button>
+    <div class="sample-full">
+      <p>With these investments in place, we aim to secure partnerships with three local galleries and 10 established authors within the first six months. In doing so, it is our goal to foster a readership of over 500 subscribers by the end of our first year in business.</p>
+      <p>Ultimately, your investment will be used to establish a strong foundation for an innovative fusion of literature and art in Ottawa that could revolutionize the way we approach creativity.</p>
+
+      <h3>Mission Statement</h3>
+      <p>We aim to create a literary magazine focused on complementing and promoting Ottawa's existing arts infrastructure. By offering local artists copywriting services, exhibitions unique marketing strategies, and aspiring writers opportunities to create short stories tailored to individual artistic pieces, we will fill a gap in communication surrounding these projects. A regular poetry contest will also allow more creative writers a platform to display their work. We value creativity, authenticity, and fresh perspectives above all else and plan to promote these values through our work.</p>
+
+      <h3>Vision Statement</h3>
+      <p>It is our belief that expression of the human spirit is at the core of all forms of art. By unifying Ottawa's diverse arts sector, we aspire to foster an environment where different disciplines can grow together by collaborating. Whether it's a mind-bending painting accompanied by a surreal short story, or an orchestra accompanying a spoken word poem, we see a space where the arts can be revolutionized from the humble beginnings of a literary magazine. Viewers of a painting may be so absorbed by a painting that they may jump to read a story that allows them to delve further into that world. Listeners of a spoken word poem may yearn to be immersed in the speaker's feelings. Everyone experiences art differently and our literary, art fusion aims to maximize the reach of individual works of creativity.</p>
+
+      <h3>Service Offerings</h3>
+      <p>Copywriting and editing for artists in need of a small blurb for their piece; proposals, cover letters, and any other form of written communication; and companion stories and poems for art pieces. Marketing between our literary magazine and partnered exhibits. Companion short stories and poems for art pieces, which will be featured in each issue of the magazine to promote the artist. Contract positions for local writers. A bi-annual poetry contest with a small fee for entry.</p>
+
+      <h3>Market Segmentation</h3>
+      <p>Three groups will comprise most of our literary magazine's market. The first will be individual artists from disciplines that don't require a prerequisite knowledge of writing. Our copywriting/editing services will appeal to these individuals.</p>
+      <p>Second, event planners and gallery managers will be our primary partners for collaborative marketing, with our publication offering their exhibits exposure.</p>
+      <p>Further, our companion short stories and poetry contest will give local creative writers an opportunity for exposure, while also bringing in commissions from their work.</p>
+      <p>As a long-term goal, we aim to become a staple in Ottawa's cultural zeitgeist by partnering with the National Gallery of Canada and Winterlude. We want our publication to become the go-to source of information for locals and tourists to find the city's best arts and performances.</p>
+
+      <h3>Competitive Analysis</h3>
+      <p>Our main competitors will be marketing agencies, established literary magazines, and freelance writers.</p>
+      <p>Eccentric agency is an Ottawa-based example of a marketing agency that may be a competitor to our collaborative marketing service. Eccentric's main draw is that it is a cheap alternative for businesses looking to outsource their marketing rather than hire a marketing team. They offer a personalized marketing campaign for a single full-time salary, which involves a project manager who works with the company to create a budget, plan, and materials. Intertwined will distinguish itself by appealing to the intangible desires of creatively focused businesses like galleries. If the cost of collaborative marketing with Intertwined is competitive, the bonus of professionally written stories and poetry will help sway the buyer in our favor. Further, our specialization in the arts industry will offer our clients a personalized plan beyond what can be accomplished in a series of introductory meetings.</p>
+      <p>Established literary magazines will also pose competition to our literary magazine. A notable competitor would be The Fiddlehead, which is a renowned and well-established publication that many think of when first considering Canadian magazines. Founded in 1945, The Fiddlehead has plenty of tenure on its side and also publishes quarterly. However, Intertwined will have the unique draw of its ties to tangible art and its focus on Ottawa-based artists and writers, which should prove a noticeable advantage now that The Fiddlehead accepts international submissions. Another competitor for this space would be flo., which is an Ottawa/Gatineau based literary magazine, looking for local authors. They publish semi-annually and focus on short stories depicting the unique perspectives of those living in a liminal location like Ottawa. Intertwined will differentiate itself by representing a wider range of stories and will publish more frequently, with quarterly issues.</p>
+      <p>Finally, freelance writers for business in the copywriting, editing, and proposal writing space. As with any other that involves freelancers, it will be difficult to compete with the flexibility and versatility offered by individual contract work. However, Intertwined's direct collaboration with artists will allow the publication to offer unique insights and specialized copy for those seeking its writing services.</p>
+
+      <h3>Business Goals</h3>
+      <p>1 — Establish a brand presence by developing a website, logo, and marketing materials within the first month. Aim to increase our first month's website traffic by 300% within the first three months.</p>
+      <p>2 — Secure partnerships with three local galleries and ten local writers within six months of launch through personalized outreach, including emails, letters, and proposals.</p>
+      <p>3 — Grow readership to 500 subscribers within the first year through marketing events, collaboration with writers, and a launch event.</p>
+
+      <h3>Timeline</h3>
+      <p>Month 1–3: Developing brand and launching website. Month 3–6: Secure partnerships with local artists and galleries. Month 6–12: Launch first event and secure 100 subscribers.</p>
+
+      <h3>Impact</h3>
+      <p>Intertwined will serve as a creative space for writers and artists to come together and share their creations, fostering a meaningful literary and arts community in Ottawa. By providing a platform that combines storytelling with visual arts, we aim to promote collaboration, spark creativity and create opportunities for local talent to thrive. Through marketing and social events, we will offer spaces for the voices of emerging writers and artists.</p>
+      <p>Our goal with Intertwined is to elevate local talent and contribute to the city's cultural landscape, enriching Ottawa's creative identity and making literature and art more accessible as professions.</p>
+
+      <h3>Budget</h3>
+      <p>Branding package &amp; marketing materials: $1,000. Publishing and distribution of first magazine issue: $3,000. Funds for physical marketing materials: $200. Prize for poetry contest: $400. Miscellaneous necessities: $400.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 02 BRAND ANALYSIS ==================== -->
+<section class="section" id="branding">
+  <p class="section-number">02</p>
+  <h2>Branding Analysis</h2>
+  <p class="section-meta">Brilliant.org — Voice, Archetypes &amp; Story</p>
+
+  <div class="sample-content">
+    <span class="sample-tag">Brand Analysis</span>
+    <p>Branding is the use of language and visuals, or lack thereof, to achieve a desired perception from an audience. Though branding is often attached to products, it can apply to anything.</p>
+    <p>People, whether consciously or inadvertently, can be considered to have personal brands. The bus driver who smiles at every passenger has a different brand from the driver who ignores everyone. Both "brand" themselves in whatever way achieves their desired social perception. The friendly bus driver wants to convey an openness that invites conversation, whereas the cold driver wants to discourage it.</p>
+    <p>For a product or service, branding aims for people to feel the product or service rather than just know about it.</p>
+    <p>Brilliant's branding is confident and concise. Claims like "get smarter in 15 minutes a day," "Concepts that click," and "Finish every day smarter" convey certainty. Each claim is also communicated within the space of only one or two sentences, which indicates that the brand is willing to let the product speak for itself.</p>
+
+    <button class="expand-toggle" onclick="toggleSample(this)">Read more ↓</button>
+    <div class="sample-full">
+      <p>Further, the branding uses language to imply dedication. Examples include: "Instant, custom feedback," "courses are crafted," and "engaging lessons." Each example features word choices designed to appear as if a level of thought and care went into every aspect of the service.</p>
+      <p>Finally, an essential aspect of Brilliant's voice is simplicity. The copy features no jargon, and avoids pretension, making its message of learning made easy for all ages and skill levels powerful.</p>
+
+      <h3>Personality Archetypes</h3>
+      <p>The brand's most prominent personality archetype is The Source. Claims that "All [their] courses are crafted by award-winning teachers and professionals from top institutions" and that their service "make[s] even complex ideas easy to grasp" effectively portray Brilliant as a source of knowledge.</p>
+      <p>However, the subtext of the copy conveys something deeper: wisdom. As a standalone concept, knowledge is narrow; one understands a fact or subject. Someone can know a great deal but struggle to teach it. True wisdom requires the ability to teach anyone and everyone, adjusting the lesson's approach based on the student(s). Therefore, Brilliant's claim to be "Designed for learners ages 13 to 113" implies that wisdom is integral to the service.</p>
+      <p>Through the branding's emphasis on wisdom, it fits another archetype — "The Pioneer." The copy claims "Brilliant's interactive approach teaches you to think, not memorize." Not only can Brilliant teach learners of all ages, it does so in a way that's "More effective" and "More fun." Both examples point to innovation as key to its approach.</p>
+      <p>A final personality archetype Brilliant fits the criteria of is "The Purist." The copy makes no mention of an ulterior end goal aside from an easy, personalized learning experience. Its sole purpose is to teach. To Brilliant, learning for learning's sake is a worthy purpose. The copy's emphasis on being accessible to all ages and skill levels cements its fit within this archetype.</p>
+      <p>With these archetypes in mind, it is clear the branding is trying to portray an irreplicable competence, versatility, and innovativeness that is worth the service's cost.</p>
+
+      <h3>Story Archetype</h3>
+      <p>The brand most neatly fits "The Quest" story archetype. Contrary to the "Rags to Riches" approach that many teaching services use, Brilliant's branding communicates a more holistic, curiosity-based approach that befits The Quest archetype.</p>
+      <p>As shown by the line "daily encouragement," Brilliant aims to be a learning companion rather than a quick fix for academic shortcomings. The copy makes several mentions of its service being a "journey" as well as two mentions of said journey being "guided."</p>
+      <p>Additionally, claims that the service is suitable for ages 13 to 113 highlight Brilliant's potential for lifelong use. No matter how long you use it, or how old you get, the service will always be curated to suit your ever-changing needs.</p>
+      <p>Inherent to this story archetype is versatility. The challenges you will face on your quest are unknown. However, Brilliant makes it clear that you will be in good hands.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 03 MEDIA REVIEW ==================== -->
+<section class="section" id="review">
+  <p class="section-number">03</p>
+  <h2>Media Review</h2>
+  <p class="section-meta">Touch (2024) — Film Criticism</p>
+
+  <div class="sample-content">
+    <span class="sample-tag">Film Review — 3.5/5</span>
+    <h3>Touch (2024): A Story Written to End</h3>
+    <p><em>Though Touch (2024) is a poignant depiction of love, loss, and healing, it lacks the deep characters and consistent pacing needed for its story to linger in viewers' minds long after the credits roll.</em></p>
+    <p>A whirlwind romance, all but lost to time and tragedy. It is a story many can relate to. Add a protagonist, who after 50 years still yearns for closure, and you have the framework for a movie that is sure to interest any moviegoer seeking an emotional ride.</p>
+    <p>This is the premise of Baltasar Kormákur's 2024 film <em>Touch</em>. The film follows its protagonist, Christopher (played by Egill Ólafsson as old Christopher and Palmi Kormákur as young Christopher) from the romance and self-discovery of his youth to his search for closure in the twilight of his life.</p>
+
+    <button class="expand-toggle" onclick="toggleSample(this)">Read more ↓</button>
+    <div class="sample-full">
+      <p>As a young man fueled by disdain for the pretensions of academia, Christopher abandons his formal schooling to work as a dishwasher at a local Japanese restaurant. There he meets a woman named Miko (played by Kôki). She is both a server and the restaurant owner's daughter. An immediate but repressed chemistry between them steers Christopher onto a path to a more meaningful understanding of life.</p>
+      <p>The outcome of their relationship is no mystery, as the movie opens with an older Christopher embarking on a journey to reconnect with a lost love. However, a sense of suspense is maintained by the well-paced progression of their relationship and the chemistry made clear by excellent performances from the two young actors. Christopher's characterization in particular carries the dynamic.</p>
+      <p>As much as having a well-written protagonist gives the film a solid ground to stand on, the rest of its characters fail to match Christopher's depth. Most glaringly is Mako's relative lack of characterization outside of her relationships with men. Even her interactions with her father all focus on men she is seeing. Where her lack of depth is noticeable, it is glaringly obvious with the rest of the characters. I believe this issue is endemic to a greater fault in the film's storytelling. It seems as if the premise and conclusion were decided on before anything else. As such, many of the side characters feel thin, and the side plots come across as unfinished. Charming performances from the cast—Miko's father and a server named Hitomi stand out—keep the characters' lack of substance from being jarring. However, it is this use of characters as mere means to an end that hinders the story's lasting impact.</p>
+      <p>Ultimately, the film's underlying message falls short of the impact it could have had. This narrow-sighted approach to writing is likely to blame. The film uses the fresh struggles of the COVID-19 pandemic to artfully shed light on the prejudices other cultures have faced. The device is clever, and the execution is tasteful, but the message does not resonate as well as it might have if the characters had been fleshed out.</p>
+      <p>On a more positive note, the film is technically masterful. The warmer but limited settings depicted in Christopher's past convey a coziness that fits the familial atmosphere perfectly. Inversely, the vast, cold emptiness of the film's present complements Christopher's sense of isolation and loss. These design decisions allow viewers to feel along with Christopher as much as they see what he experiences. Finally, well-placed camera angles allow these decisions to have their full impact.</p>
+      <p>With the impressive displays of acting, filmography, and set design in mind, <em>Touch</em> is an experience well worth the price of admission. Unfortunately, thin characters and tunnel-visioned writing keep it from having a lasting impact. Unlike Miko's lingering impression on Christopher, the film will probably have been swept from your mind by the time you have left the theatre.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 04 BLOG POST ==================== -->
+<section class="section" id="blog">
+  <p class="section-number">04</p>
+  <h2>Published Blog Post</h2>
+  <p class="section-meta">The Haka — Published on Spine Online</p>
+
+  <div class="sample-content">
+    <span class="sample-tag">Cultural Feature</span>
+    <p>As far as recent events in world politics are concerned, there are few events as moving as what took place during New Zealand's most recent parliamentary meeting. Anyone who keeps up with international politics has likely seen this video:</p>
+    <p>The video features New Zealand Member of Parliament, Hana-Rawhiti Maipi-Clarke, performing the haka as she tears apart the proposed bill to reinterpret New Zealand's founding treaty. Soon after she begins, other Māori members of parliament join her, as do those in the gallery. I admittedly had no idea what the Haka was before seeing this video, but the powerful scene immediately grabbed my interest and inspired me to find out more. So, what is the haka?</p>
+
+    <button class="expand-toggle" onclick="toggleSample(this)">Read more ↓</button>
+    <div class="sample-full">
+      <h3>The Haka</h3>
+      <p>The haka is a traditional ritual performed by New Zealand's indigenous Polynesian population, the Māori. The ritual serves numerous ceremonial purposes, which range from welcoming guests and mourning deceased to giving instruction and transmitting social and political messages.</p>
+      <p>At its roots, the haka originated from a Māori myth about Tane-rone, son of the sun god, Tama-nui-te-ra, and the summertime goddess, Hine-Raumati. Legend says, Tane-rone would dance for his mother each summer, causing the air to quiver in what, to us, appears to be heat waves. The haka symbolizes this action through its focus on hand gestures, primarily gestures of trembling.</p>
+      <p>In practice, the Māori people would perform the Haka to welcome visiting tribes. They would also practice the ritual to reinvigorate soldiers before battle.</p>
+      <p>When there were still numerous thriving Māori tribes, each tribe had slight variations on the haka, telling of their unique history. As is the case with numerous countries worldwide, colonialism would limit this rapidly developing culture for generations to come.</p>
+
+      <h3>Colonialism in New Zealand</h3>
+      <p>1769 was the beginning of the end for the Māori's independence. That is the year British explorer, James Cook arrived. After the land showed promising signs for profit, Britain's interest would grow over the next 60 years as colonialists increased contact with indigenous tribes.</p>
+      <p>Nearly all contact between the Māori and Europeans passed peacefully, but the few instances of European killings doomed the Māori island to be dubbed the 'Cannibal Isles.' Conveniently for British colonialists, no connection was ever acknowledged between those killings and the mass murders of Māori people before any European killings.</p>
+      <p>Decades of gradual British assimilation into the land's tribes culminated in the 'epiphany' that God's work was being impeded by the Māori's way of life. The efforts of both British missionaries and colonialists led to the controversial signing of the Treaty of Waitangi.</p>
+      <p>I think all that needs to be said about this 'controversy' is that historians claim there are different meanings between the English and Māori documents. At best, the treaty was an enormous misunderstanding. At worst, it was another masterful act of manipulation by a regime with no shortage of such examples.</p>
+      <p>Decades of repression passed, and New Zealand's indigenous gradually regained hold over their cultural rights. Their fight culminated with the Treaty of Waitangi being amended to restore the Māori's rights.</p>
+
+      <h3>On the World's Stage</h3>
+      <p>The haka persists most prominently through displays by New Zealand's union rugby team, the All Blacks and its women's team, the Black Ferns. Similarly to its effect on its own population, the Haka's series of rhythmic movements and forceful chants powerfully communicates to other countries the spirit of New Zealand.</p>
+
+      <h3>The Haka's Significance Today</h3>
+      <p>As I mentioned earlier, the haka performed by MP Hana-Rawhiti Maipi-Clarke inspired visceral emotions in me. I could feel the force of opposition being conveyed despite not understanding a single word of her song. This instant connection of feeling drew me to the cause, and I looked further into the issue that gave rise to such a powerful display of emotion.</p>
+      <p>That sort of effect on the political sphere is as impactful as any well-told speech. While the haka might lack the careful precision of a speech, it impacts its listeners through the communication of authentic human emotion. Its chants, movements, and facial expressions infuse the ritual with a passion that transcends language.</p>
+      <p>With colonial Britain's damage of the Māori's people fresh in mind, it's fitting that the haka was used to successfully refute a bill that would have reinterpreted the reparations owed to the Māori. It should also be noted that colonialists took measures to replace the native haka rituals with Christian hymns, calling the haka 'barbaric.'</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 05 VIDEO SCRIPT ==================== -->
+<section class="section" id="script">
+  <p class="section-number">05</p>
+  <h2>Instructional Video Script</h2>
+  <p class="section-meta">How to Access Your SIN Number</p>
+
+  <div class="sample-content">
+    <span class="sample-tag">Technical / Instructional</span>
+    <p class="script-direction"><em>Narrator:</em></p>
+    <p>Hello, and welcome to your step-by-step guide to register for a Social Insurance Number, which will be referred to throughout this video as your SIN. If you are a Canadian citizen, permanent resident, or temporary resident and have yet to access your SIN, you've found the right video.</p>
+    <p>A SIN is an essential component for a successful life in Canada. It is required to work, as well as access government programs and benefits. It is also needed to access your Canada's Revenue Agency or CRA account and monitor your taxes, credits, and returns. A SIN is an invaluable resource for maximizing your financial security.</p>
+
+    <button class="expand-toggle" onclick="toggleSample(this)">Read more ↓</button>
+    <div class="sample-full">
+      <p>The process for accessing your SIN begins on the Government of Canada web page titled "Overview." Here you will be informed of the framework behind SINs, and the importance of protecting your SIN from use by anyone but yourself.</p>
+      <p>To proceed, click the sidebar link titled "Who needs a SIN" located on the right side of the page.</p>
+      <p>You will be directed to a page featuring more in-depth information about who is eligible for a SIN.</p>
+      <p>Essentially, if you are a Canadian resident of any kind over the age of 12, you are eligible and can proceed. Click the sidebar link titled "Apply, update or obtain a SIN confirmation located on the right side of the page."</p>
+      <p>In this section, you can find information specific to your circumstance. Covered first are the steps required to view your SIN on your My Service Canada Account if you already have an active SIN. Should you need help accessing your My Service Canada Account, we will link a step-by-step guide to doing so in the description of this video. If you would prefer not to access your SIN via your My Service Canada Account, your SIN can also be found on your income tax return, tax slips, record of employment, or RRSP contribution document if you have any of these resources available.</p>
+      <p>If you do not have a SIN, you can apply for one either online or in-person. An online application is available through your My Service Canada Account. In-person applications are available at any Service Canada Centre location or by mail. A link to help you find your nearest Service Canada Centre can be found in the description of this video. Mail should be directed to the Social Insurance Registration Office located in Bathurst, NB. Mailing details will also be included in this video's description.</p>
+      <p>It is important to note that there is no fee to apply for a SIN.</p>
+      <p>A SIN application is necessary for any Canadian looking to request a SIN for the first time, confirm an existing SIN, correct an error on their SIN record, or update the personal information attached to their SIN.</p>
+      <p>If you decide to apply online, ensure you do so from a secure location such as a personal computer or device, or ensure your information is attended at all times and cleared from the public device's history after your application is complete.</p>
+      <p>Finally, you will find a list of personal circumstances. Please choose the option that best applies to your reason for applying, updating, or obtaining a SIN confirmation. Once you have chosen, click the white circle next to it to verify your selection. You will then be offered another set of unique personal circumstances. Once you have chosen the options that best fit your situation, you can proceed to the next section by clicking the link in the sidebar titled "Receiving and updating your SIN" located on the right side of the page.</p>
+      <p>In this section, you will be shown the personal information the Social Insurance Register stores on your behalf and attaches to your SIN. It is important that this information is accurately reported and up to date.</p>
+      <p>Next, you will encounter a series of dropdown menus featuring various situations applicants may face while waiting to receive their SIN or have it updated. If any of the six dropdown menus apply to your situation, it is recommended you click on each applicable circumstance and read the information revealed.</p>
+      <p>Once you have read through each applicable situation, you can proceed by clicking the sidebar link titled "Protecting your SIN" located on the page's right side.</p>
+      <p>As mentioned before, your SIN must be kept private. Under no circumstance should you offer it as a form of identification. The primary dangers of having your SIN compromised include identity theft and loss of government benefits, tax refunds or bank credits. If stolen, your SIN can be used to commit fraud, which could ruin your credit score and hinder the victim's future opportunities for loans.</p>
+      <p>Below, you will see a series of dropdown menus containing information about frequently asked questions. If any of these subsections apply to your situation, click the arrow to learn more.</p>
+      <p>When you are ready to continue, click the link located in the righthand sidebar titled "Required documents."</p>
+      <p>Here you will find specific examples of primary, secondary, and supporting documents. All chosen documents must be original copies.</p>
+      <p>Finally, if you need further assistance, or would prefer to verify your understanding by speaking to a representative at the Social Insurance Number Program, select the "Contact us" link located in the righthand side bar. A SIN is essential to ensuring all your needs are met, so it is recommended you start the process of acquiring your SIN as soon as possible.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section class="section" id="about">
+  <p class="section-number">06</p>
+  <h2>About</h2>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>Capabilities</h3>
+      <div class="skills-list">
+        <span>Business Writing</span>
+        <span>Brand Analysis</span>
+        <span>Copywriting</span>
+        <span>Editing</span>
+        <span>Cultural Journalism</span>
+        <span>Film Criticism</span>
+        <span>Scriptwriting</span>
+        <span>Proposal Writing</span>
+        <span>Content Strategy</span>
+        <span>Event Management</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <h2>Let's work together</h2>
+  <p>Available for freelance projects, contract positions, and full-time opportunities.</p>
+  <a href="mailto:adamdwritingservices@gmail.com">adamdwritingservices@gmail.com</a>
+  <p class="footer-note">© Adam Dickson 2026</p>
+</footer>
+
+<script>
+  function toggleSample(btn) {
+    const full = btn.nextElementSibling;
+    full.classList.toggle('open');
+    btn.textContent = full.classList.contains('open') ? 'Show less ↑' : 'Read more ↓';
+  }
+
+  // Sticky nav active state
+  const sections = document.querySelectorAll('.section');
+  const navLinks = document.querySelectorAll('.portfolio-nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const active = document.querySelector(`.portfolio-nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
